@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <el-form :inline="true" class="demo-form-inline">
-      <el-form-item label="下拉树">
-        <Tree :tree-data="treeData" />
+      <el-form-item label="VastSelectTree">
+        <VastSelectTree v-model="values" :treeParams="treeParams" :styles="styles" />
       </el-form-item>
       <el-form-item label="下拉树123"> </el-form-item>
     </el-form>
@@ -10,86 +10,44 @@
 </template>
 
 <script>
-import Tree from './components/Tree.vue'
+import TREE_JSON from './assets/json/treeData.json'
+import VastSelectTree from './components/VastSelectTree.vue'
 
 export default {
   name: 'App',
   components: {
-    Tree,
+    VastSelectTree,
   },
   methods: {},
   data() {
     return {
-      defaultProps: {
-        children: 'children',
-        label: 'label',
-      },
       values: [],
-      treeData: [
-        {
-          id: '0',
-          label: '全部',
-          children: [
-            {
-              id: '1',
-              label: '客车',
-              children: [
-                {
-                  id: '1-1',
-                  label: '客1',
-                },
-                {
-                  id: '1-2',
-                  label: '客2',
-                },
-                {
-                  id: '1-3',
-                  label: '客3',
-                },
-                {
-                  id: '1-4',
-                  label: '客4',
-                },
-              ],
-            },
-            {
-              id: '2',
-              label: '货车',
-              children: [
-                {
-                  id: '2-1',
-                  label: '货1',
-                },
-                {
-                  id: '2-2',
-                  label: '货2',
-                },
-                {
-                  id: '2-3',
-                  label: '货3',
-                },
-                {
-                  id: '2-4',
-                  label: '货4',
-                },
-                {
-                  id: '2-5',
-                  label: '货5',
-                },
-                {
-                  id: '2-6',
-                  label: '货6',
-                },
-              ],
-            },
-            {
-              id: '3',
-              label: '专项作业车',
-            },
-          ],
+      popoverClass: 'vast-popover-class', // 弹窗类名
+      styles: {
+        width: '400px',
+      },
+
+      treeParams: {
+        'check-strictly': true,
+        'default-expand-all': true,
+        'expand-on-click-node': false,
+        clickParent: false,
+        filterable: true,
+        data: TREE_JSON,
+        props: {
+          children: 'children',
+          label: 'label',
+          disabled: 'disabled',
+          value: 'id',
         },
-      ],
+      },
     }
   },
 }
 </script>
+
+<style lang="scss">
+// .el-popover {
+//   padding: 0px;
+// }
+</style>
